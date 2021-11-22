@@ -60,11 +60,19 @@ void affiche_jet(tab_jet jet){
     }
 }
 
-void affiche_tab(feuille feuille_score, feuille joueur1, feuille joueur2,char j1[15], char j2[15]){
+void affiche_tab(feuille score, feuille_score joueur1, feuille_score joueur2,char j1[15], char j2[15]){
     int i;
     printf("Scores               | %s | %s\n",j1,j2);
     for(i=0; i<LIGNES; i++){
-        printf("%s |    [%s]    |    [%s]\n", feuille_score[i], joueur1[i], joueur2[i]);
+        if(joueur1[i] == -1){
+            printf("%s |    [ ]    |    [%s]\n", score[i], joueur2[i]);
+        }else if(joueur2[i] == -1){
+            printf("%s |    [%s]    |    [ ]\n", score[i], joueur1[i]);
+        }else if(joueur1[i] == -1 && joueur2[i] == -1){
+            printf("%s |    [ ]    |    [ ]\n", score[i]);
+        }else{
+            printf("%s |    [%s]    |    [%s]\n", score[i], joueur1[i], joueur2[i]);
+        }
     }
 }
 
