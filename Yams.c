@@ -59,11 +59,12 @@ int somme(tab_jet jet){
 }
 
 //affiche le jet qui vient d'être effectué
-void affiche_jet(tab_jet jet){
+void affiche_jet(tab_jet jet, int somme){
     int i;
     for(i=0; i<JET; i++){
         printf("%d : %d\n", i, jet[i]);
     }
+    printf("somme : %d\n", somme);
 }
 
 //affiche les feuille de score ( avec des trous si les cases ne sont pas encore remplies )
