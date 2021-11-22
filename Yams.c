@@ -112,6 +112,23 @@ bool validation_relance(){
     }
 }
 
+//blocage des dés
+void blocage(tab_jet jet_courant,tab_jet bloque){
+    int val;
+    bool stop = false;
+    while(stop == false){
+        printf("Quel dé voulez vous bloquer ( entrez -1 pour stopper la sélection)\n");
+        scanf("%d", &val);
+        if(val == -1){
+            stop = true;
+        }else if(val < 1 || val > 5){
+            printf("erreur numéro de dé non valide, rééssayez\n");
+        }else{
+            bloque[val] = jet_courant[val];
+        }
+    }
+}
+
 
 //Menu de fin qui demande si les joueurs veulent relancer une partie ou quitter
 bool menufin(){
