@@ -1,0 +1,125 @@
+programme Yams c'est
+début
+    noms_joueurs : tableau[1..2] de chaine(20);
+    feuille_score_j1 : tableau[1..17] de entier;
+    feuille_score_j2 : tableau[1..17] de entier;
+    combinaisons : tableau[1..17] de chaine(50);
+    combinaisons := ("1 (total de 1)", "2 (total de 2)", "3 (total de 3)", "4 (total de 4)", "5 (total de 5)", "6 (total de 6)", "Bonus si > à 62 [35]", "Total supérieur", "Brelan [total]", "Carré [total]", "Full House [25]", "Petite suite [30]", "Grande suite [40]", "Yams [50]", "Chance [total]", "Total inférieur", "Total" );
+    relance_partie : booléen;
+    relance_partie : vrai;
+    tour : entier;
+    joueur : entier;
+
+    demande_noms(entE/sortE noms_joueurs);
+
+
+    tant que (relance_partie == vrai) faire
+        pour tour de 1 à 13 faire
+            pour joueur de 1 à 2 faire
+
+                nb_essais : entier;
+                nb_essais := 3 ;
+                jet : tableau[1..5] de entier;
+                des_bloques : tableau[1..5] de entier;
+                somme_des : entier;
+                relance_des : booléen;
+                relance_des : vrai;
+
+                si (joueur == 1) alors
+                    tant que (relance_des == vrai ) faire
+
+                        si (nb_essais > 0) alors
+                            affichage_feuille_marque(entE nom_joueurs[joueur], entE combinaisons, entE feuille_score_j1);
+
+                            jet_de_des(entE/sortE jet, entE des_bloques);
+
+                            nb_essais := nb_essais - 1;
+
+                            validation_relance(entE/sortE relance_des);  
+
+                        sinon
+
+                            relance_des := faux;
+
+                        finsi
+                    finfaire
+
+                    affectation_score(entE jet, entE/sortE feuille_score_j1);
+
+                sinonsi (joueur == 2) alors
+                    tant que (relance_des == vrai ) faire
+                    
+                        si (nb_essais > 0) alors
+                            affichage_feuille_marque(entE nom_joueurs[joueur],entE combinaisons, entE feuille_score_j2);
+
+                            jet_de_des(entE/sortE jet, entE des_bloques);
+
+                            nb_essais := nb_essais - 1;
+
+                            validation_relance(entE/sortE relance_des);  
+
+                        sinon
+
+                            relance_des := faux;
+
+                        finsi
+                    finfaire
+
+                    affectation_score(entE jet, entE/sortE feuille_score_j2);
+
+                finsi
+            finfaire
+        finfaire
+
+        affiche_vainqueur(entE nom_joueurs, entE combinaisons, entE feuille_score_j1, entE feuille_score_j2);
+
+        relance_partie := menu_fin();
+
+    finfaire
+
+fin
+
+procédures : 
+             - demande de nom ( demande le nom des deux joueurs et renvoie un tableau les contenant ):
+
+                procedure demande_noms(entF/sortF noms_joueurs : tableau[1..2] de chaine(20)) c'est
+
+
+             - affichage de la feuille de marque du joueur :
+
+                procédure affichage_feuille_marque(entF nom_joueurs[joueur] : chaine(20),entF combinaisons :tableau[1..17] de chaine(50), entF feuille_score : tableau[1..17] de entier) c'est
+
+
+             - jet des dés, et affichage des dés : 
+
+                procédure jet_de_des(entF/sortF jet : tableau[1..5] de entier, entF des_bloques : tableau[1..5] de entier) c'est
+
+
+             - conservation des dés ( appelé par la procédure validation_relance ):
+                
+                procedure blocage_des(entF jet : tableau[1..5] de entier, entF/sortF des_bloques : tableau[1..5] de entier ) c'est
+
+
+             - validation ou relance des dés (dans cette procédure le joueur a le choix de relancer ses dés (si c'est le cas il pourra choisir d'en bloquer) ou de valider ses dés):
+
+                procédure validation_relance(entF/sortF relance_des : booléen) c'est
+
+             - affectation du score dans la feuille de marque ( après que le joueur ai validé, cette procédure est appellée et demande au joueur d'affecter ses dés dans sa feuille de marque):
+
+                procédure affectation_score(entF jet : tableau[1..5], entF/sortF feuille_score : tableau[1..17] de entier) c'est
+
+             - affichage du vainqueur et des scores finaux :
+
+                procédure affiche_vainqueur(entE nom_joueurs : tableau[1..2] de chaine(20), entE combinaisons :tableau[1..17] de chaine(50), entE feuille_score_j1 : tableau[1..17] de entier, entE feuille_score_j2 : tableau[1..17] de entier) c'est
+
+
+             - somme dés :
+
+                procédure somme_des(entF jet : tableau[1..5] de entier, sortF somme_des : entier) c'est
+
+
+fonctions : 
+             - menu de fin ( relance d'une partie ou quitter ), affiche un menu, si le joueur choisit relance alors retourne vrai sinon retourne faux et donc la boucle se stoppe :
+
+                fonction menu_fin() délivre booleen c'est
+
