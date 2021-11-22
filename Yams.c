@@ -4,12 +4,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
-#include <time.h>
-#include <unistd.h>
+
 
 #define JET 5
 #define LIGNES 17
