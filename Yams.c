@@ -93,6 +93,25 @@ void initialisation_score(feuille joueur1, feuille joueur2){
     }
 }
 
+//Menu de choix qui propose de bloquer / relancer ou de valider le lancé effectué
+bool validation_relance(){
+    int val;
+    printf("Choisissez : \n");
+    printf("1 - Relancer les dés (possibilitée de bloquer les dés avant la relance)\n");
+    printf("2 - Valider le lancer\n");
+    scanf("%d", &val);
+
+    while(val < 1 || val > 2){
+        printf("Erreur, rentrez 1 ou 2\n");
+        scanf("%d", &val);
+    }
+    if(val == 1){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 
 //Menu de fin qui demande si les joueurs veulent relancer une partie ou quitter
 bool menufin(){
