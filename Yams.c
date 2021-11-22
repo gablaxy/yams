@@ -64,12 +64,12 @@ void affiche_tab(feuille score, feuille_score joueur1, feuille_score joueur2,cha
     int i;
     printf("Scores               | %s | %s\n",j1,j2);
     for(i=0; i<LIGNES; i++){
-        if(joueur1[i] == -1){
+        if(joueur1[i] == -1 && joueur2[i] == -1){
+            printf("%s |    [ ]    |    [ ]\n", score[i]);
+        }else if(joueur1[i] == -1){
             printf("%s |    [ ]    |    [%d]\n", score[i], joueur2[i]);
         }else if(joueur2[i] == -1){
             printf("%s |    [%d]    |    [ ]\n", score[i], joueur1[i]);
-        }else if(joueur1[i] == -1 && joueur2[i] == -1){
-            printf("%s |    [ ]    |    [ ]\n", score[i]);
         }else{
             printf("%s |    [%d]    |    [%d]\n", score[i], joueur1[i], joueur2[i]);
         }
