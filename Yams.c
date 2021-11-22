@@ -7,14 +7,16 @@
 
 #define JET 5
 #define LIGNES 17
-typedef int tab_jet[JET];
-typedef char *feuille[LIGNES];
+typedef int tab_jet[JET];//tableau d'un jet de dé
+typedef char *feuille[LIGNES];//tableau des combinaisons à titre informatif pour les joueurs
 
+//effectue un jet de dé random
 int jet_un_de(){
     srand(time(NULL));
     return rand() % 6+1;
 }
 
+//effectue 5 jets de dés
 void jet(tab_jet resultats){
     int i;
     for(i=0; i<JET; i++){
@@ -24,6 +26,7 @@ void jet(tab_jet resultats){
     }
 }
 
+//formate le nom pour pouvoir l'entrer dans le tableau et l'afficher 
 void formater_nom(char j[15]){
     int nb_caract = 0;
     for(int i=0;j[i];i++){
@@ -34,6 +37,7 @@ void formater_nom(char j[15]){
     }
 }
 
+//demande les pseudos des joueurs
 void demande_nom(char j1[15], char j2[15]){
     printf("nom joueur 1 ?\n");
     scanf("%s", j1);
@@ -44,6 +48,7 @@ void demande_nom(char j1[15], char j2[15]){
     printf("%s %s\n",j1,j2);
 }
 
+//calcule la somme du jet qui vient d'être effectué
 int somme(tab_jet jet){
     int somme = 0;
     int i;
@@ -53,6 +58,7 @@ int somme(tab_jet jet){
     return somme;
 }
 
+//affiche le jet qui vient d'être effectué
 void affiche_jet(tab_jet jet){
     int i;
     for(i=0; i<JET; i++){
@@ -60,6 +66,7 @@ void affiche_jet(tab_jet jet){
     }
 }
 
+//affiche les feuille de score ( avec des trous si les cases ne sont pas encore remplies )
 void affiche_tab(feuille score, feuille_score joueur1, feuille_score joueur2,char j1[15], char j2[15]){
     int i;
     printf("Scores               | %s | %s\n",j1,j2);
@@ -76,6 +83,7 @@ void affiche_tab(feuille score, feuille_score joueur1, feuille_score joueur2,cha
     }
 }
 
+// initialise les feuilles de score au début de la partie
 void initialisation_score(feuille joueur1, feuille joueur2){
     int i;
     for(i=0; i<LIGNES; i++){
@@ -84,6 +92,8 @@ void initialisation_score(feuille joueur1, feuille joueur2){
     }
 }
 
+
+//Menu de fin qui demande si les joueurs veulent relancer une partie ou quitter
 bool menufin(){
     int val;
     printf("Choisissez :\n");
