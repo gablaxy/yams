@@ -57,16 +57,16 @@ void affiche_jet(tab_jet jet, int somme){
 // affiche les feuille de score
 void affiche_tab(feuille score, feuille_score joueur1, feuille_score joueur2,char j1[15], char j2[15]){
     int i;
-    printf("          |Scores               |  %15s| %15s|\n",j1,j2);
+    printf("          |Scores               |%15s|%15s|\n",j1,j2);
     for(i=0; i<LIGNES; i++){
         if(joueur1[i] == -1 && joueur2[i] == -1){ // met des trous si les case ne sont pas encore remplies/bloquées
-            printf("%s |       [ ]       |       [ ]      |\n", score[i]);
+            printf("%s |\t|\t|\n", score[i]);
         }else if(joueur1[i] == -1){
-            printf("%s |       [ ]       |       [%d]      |\n", score[i], joueur2[i]);
+            printf("%s |\t|%2d\t\n", score[i], joueur2[i]);
         }else if(joueur2[i] == -1){
-            printf("%s |       [%d]       |      [ ]      |\n", score[i], joueur1[i]);
+            printf("%s |%2d\t|\t|\n", score[i], joueur1[i]);
         }else{
-            printf("%s |       [%d]       |       [%d]      |\n", score[i], joueur1[i], joueur2[i]);
+            printf("%s |%2d\t|%2d\t|\n", score[i], joueur1[i], joueur2[i]);
         }
     }
 }
@@ -422,7 +422,7 @@ int main(){
     char nom_joueur1[20], nom_joueur2[20];
 
     while(partie == true){
-        //demande_nom(nom_joueur1,nom_joueur2);
+        demande_nom(nom_joueur1,nom_joueur2);
         initialisation_score(score1, score2);
 
         for(int i = 0; i < 2; i++){ // nb de tours de la partie 
