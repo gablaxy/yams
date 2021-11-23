@@ -7,17 +7,17 @@
 
 #define JET 5
 #define LIGNES 17
-typedef int tab_jet[JET];//tableau d'un jet de dé
-typedef char *feuille[LIGNES];//tableau des combinaisons à titre informatif pour les joueurs
-typedef int feuille_score[LIGNES]; //tableau de score des joueurs
+typedef int tab_jet[JET]; // tableau d'un jet de dé
+typedef char *feuille[LIGNES]; // tableau des combinaisons à titre informatif pour les joueurs
+typedef int feuille_score[LIGNES]; // tableau de score des joueurs
 
-//effectue un jet de dé random
+// effectue un jet de dé random
 int jet_un_de(){
     srand(time(NULL));
     return rand() % 6+1;
 }
 
-//effectue 5 jets de dés
+// effectue 5 jets de dés
 void jet(tab_jet resultats){
     int i;
     for(i=0; i<JET; i++){
@@ -26,7 +26,7 @@ void jet(tab_jet resultats){
     }
 }
 
-//demande les pseudos des joueurs
+//demande des pseudos
 void demande_nom(char j1[15], char j2[15]){
     printf("nom joueur 1 ?\n");
     scanf("%s", j1);
@@ -40,7 +40,7 @@ int somme(tab_jet jet){
     int somme = 0;
     int i;
     for(i=0; i<JET; i++){
-        somme = somme + jet[i]; //rajoute i à la somme des dés
+        somme = somme + jet[i];
     }
     return somme;
 }
@@ -56,12 +56,12 @@ void affiche_jet(tab_jet jet, int somme){
 }
 
 
-//affiche les feuille de score ( avec des trous si les cases ne sont pas encore remplies )
+// affiche les feuille de score
 void affiche_tab(feuille score, feuille_score joueur1, feuille_score joueur2,char j1[15], char j2[15]){
     int i;
     printf("          |Scores               |  %15s| %15s|\n",j1,j2);
     for(i=0; i<LIGNES; i++){
-        if(joueur1[i] == -1 && joueur2[i] == -1){
+        if(joueur1[i] == -1 && joueur2[i] == -1){ // met des trous si les case ne sont pas encore remplies/bloquées
             printf("%s |       [ ]       |       [ ]      |\n", score[i]);
         }else if(joueur1[i] == -1){
             printf("%s |       [ ]       |       [%d]      |\n", score[i], joueur2[i]);
@@ -81,7 +81,7 @@ void initialisation_score(feuille_score joueur1, feuille_score joueur2){
     }
 }
 
-//remet à 0 le tableau des dés bloqués
+// réinitialise à 0 le tableau des dés bloqués
 void reset_tab_jet(tab_jet bloque){
     for(int i=0; i<JET; i++){
         bloque[i]=0;
@@ -91,20 +91,20 @@ void reset_tab_jet(tab_jet bloque){
 // Calcule les totaux des feuilles de score
 void totaux(feuille_score joueur){
     int total_sup = 0;
-    for(int i=0; i<7; i++){
+    for(int i=0; i<7; i++){ // calcul et affectation du total supérieur
         if(joueur[i] != -1){
             total_sup = total_sup + joueur[i];
         }
     }
 
     int total_inf = 0;
-    for(int i=8; i<15; i++){
+    for(int i=8; i<15; i++){ // calcul et affectation du total inférieur
         if(joueur[i] != -1){
             total_inf = total_inf + joueur[i];
         }
     }
 
-    joueur[16] = total_sup + total_inf;
+    joueur[16] = total_sup + total_inf; // calcul et affectation du total
 }
 
 // renvoie le nombre d'occurence de x dans un tableau de nombres
@@ -120,18 +120,18 @@ int total_de_x(int x, tab_jet jet_courant){
 
 //renvoie la valeur qui apparait le plus de fois dans le lancé
 int plus_de_fois(tab_jet jet_courant){
-    int nb_de[6];
+    int nb_de[6]; // création d'un tableau pour répertorier le nombre d'apparition des valeurs possibles
     int val_max;
 
-    for(int i=0; i<6; i++){
+    for(int i=0; i<6; i++){ // initialise à zéro tout le tableau
         nb_de[i]=0;
     }
 
-    for(int j=0; j<JET; j++)
+    for(int j=0; j<JET; j++) // répertorie le nombre d'apparition des valeurs
         nb_de[jet_courant[j]-1] = nb_de[jet_courant[j]-1] + 1;
 
     int max = jet_courant[0];
-    for(int y=0; y<JET; y++){
+    for(int y=0; y<JET; y++){ // cherche la valeur ayant le plus d'apparition
         if(max < nb_de[y]){
             max = nb_de[y];
             val_max = y+1;
@@ -195,11 +195,8 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
     scanf("%d", &num_case);
 
     while(stop == false){
-        if(num_case < 0 || num_case > 15 || num_case == 6 || num_case == 7){
-            printf("Numéro de case invalide, choisissez-en un autre !\n");
-        }else{
-            switch (num_case){ // test si les combinaisons sont valides
-            case 1:
+        switch (num_case){ // test si les combinaisons sont valides
+            case 1: // total de 1
                 nb_occurences = total_de_x(1,jet_courant);
                 if(nb_occurences > 0){
                     joueur[num_case - 1] = nb_occurences;
@@ -209,7 +206,7 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                 }
                 break;
 
-            case 2:
+            case 2: // total de 2
                 nb_occurences = total_de_x(2,jet_courant);
                 if(nb_occurences > 0){
                     joueur[num_case - 1] = nb_occurences*2;
@@ -219,7 +216,7 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                 }
                 break;
 
-            case 3:
+            case 3: // total de 3
                 nb_occurences = total_de_x(3,jet_courant);
                 if(nb_occurences > 0){
                     joueur[num_case - 1] = nb_occurences*3;
@@ -229,7 +226,7 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                 }                
                 break;
 
-            case 4:
+            case 4: // total de 4
                 nb_occurences = total_de_x(4,jet_courant);
                 if(nb_occurences > 0){
                     joueur[num_case - 1] = nb_occurences*4;
@@ -239,7 +236,7 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                 }                
                 break;
 
-            case 5:
+            case 5: // total de 5
                 nb_occurences = total_de_x(5,jet_courant);
                 if(nb_occurences > 0){
                     joueur[num_case - 1] = nb_occurences*5;
@@ -249,7 +246,7 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                 }                
                 break;
 
-            case 6:
+            case 6: // total de 6
                 nb_occurences = total_de_x(6,jet_courant);
                 if(nb_occurences > 0){
                     joueur[num_case - 1] = nb_occurences*6;
@@ -323,9 +320,10 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                 joueur[num_case - 1] = somme_des;
                 stop = true;        
                 break;
+                
             default:
+                printf("Numéro de case invalide, choisissez-en un autre !\n"); // si le nombre rentré n'est pas une valeur dispo
                 break;
-            }
         }
         if(stop == false){
             printf("Choisissez dans quelle case vous voulez affecter votre score\n");
@@ -338,7 +336,7 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
 void fusion(tab_jet jet_courant,tab_jet bloque){
     for(int i=0; i<JET; i++){
         if(bloque[i] != 0){
-            jet_courant[i] = bloque[i];
+            jet_courant[i] = bloque[i]; // affecte la valeur des dés bloqués dans le tableau du jet qui vient d'être effectué
         }
     }
 }
@@ -355,7 +353,7 @@ void blocage(tab_jet jet_courant,tab_jet bloque){
         }else if(val < 1 || val > 5){
             printf("erreur numéro de dé non valide, rééssayez\n");
         }else{
-            bloque[val-1] = jet_courant[val-1];
+            bloque[val-1] = jet_courant[val-1]; // sauvegarde la valeur du dé bloqué dans un tableau
         }
     }
 }
