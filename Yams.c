@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdbool.h>
 #include <time.h>
-#include <unistd.h>
 
 #define JET 5
 #define LIGNES 17
@@ -13,7 +12,7 @@ typedef int feuille_score[LIGNES]; // tableau de score des joueurs
 
 // effectue un jet de dé random
 int jet_un_de(){
-    srand(time(NULL));
+    
     return rand() % 6+1;
 }
 
@@ -21,7 +20,6 @@ int jet_un_de(){
 void jet(tab_jet resultats){
     int i;
     for(i=0; i<JET; i++){
-        sleep(1);
         resultats[i] = jet_un_de(); 
     }
 }
@@ -396,6 +394,7 @@ bool menufin(){
 }
 
 int main(){
+    srand(time(NULL));
     feuille_score score1, score2;
     feuille combinaisons = {
         "case n°1  |1 (total de 1)      ",
