@@ -26,10 +26,21 @@ int jet_un_de(){
  * @param tab_jet tableau d'entiers où stocker les résultat des 5 lancés
  */
 void jet(tab_jet resultats){
-    int i;
-    for(i=0; i<JET; i++){
-        resultats[i] = jet_un_de(); 
+    int val;
+    bool stop = false;
+    while(stop==false){
+        printf("Voulez vous lancer les dés ?\n");
+        printf("1- Oui\n");
+        printf("2- Non\n");
+        scanf("%d", &val);
+        if(val==1){
+            stop = true;
+            for(int i=0; i<JET; i++){
+                resultats[i] = jet_un_de(); 
+            }
+        }
     }
+    
 }
 
 
@@ -82,6 +93,7 @@ void affiche_jet(tab_jet jet, int somme){
     printf("|     | |     | |     | |     | |     |\n");
     printf(" ¯¯¯¯¯   ¯¯¯¯¯   ¯¯¯¯¯   ¯¯¯¯¯   ¯¯¯¯¯\n");
     printf("somme totale du jet : %d\n", somme);
+    printf("\n");
 }
 
 /**
@@ -142,20 +154,27 @@ void reset_tab_jet(tab_jet bloque){
  * @param feuille_score tableau des scores du joueur dont on veut faire les totaux
  */
 void totaux(feuille_score joueur){
+    
     int total_sup = 0;
-    for(int i=0; i<15; i++){ // calcul et affectation du total supérieur
+    for(int i=0; i<7; i++){ // calcul et affectation du total supérieur
         if(joueur[i] != -1){
             total_sup = total_sup + joueur[i];
+            
         }
     }
+    if(total_sup > 62){
+        joueur[7]=35;
+    }
+    joueur[6] = total_sup;
+
 
     int total_inf = 0;
     for(int i=8; i<15; i++){ // calcul et affectation du total inférieur
         if(joueur[i] != -1){
             total_inf = total_inf + joueur[i];
-        }
+        }  
     }
-
+    joueur[15] = total_inf;
     joueur[16] = total_sup + total_inf; // calcul et affectation du total
 }
 
@@ -195,7 +214,7 @@ int plus_de_fois(tab_jet jet_courant){
 
     int max = 0;
     max = nb_de[0];
-    for(int y=0; y<JET; y++){ // cherche la valeur ayant le plus d'apparition
+    for(int y=0; y<6; y++){ // cherche la valeur ayant le plus d'apparition
         if(max < nb_de[y]){
             max = nb_de[y];
             val_max = y+1;
@@ -570,8 +589,8 @@ int main(){
         "n°4  |4 (total de 4)      ",
         "n°5  |5 (total de 5)      ",
         "n°6  |6 (total de 6)      ",
-        "n°7  |Bonus si > à 62 [35]",
-        "n°8  |Total supérieur     ",
+        "n°7  |Total supérieur     ",
+        "n°8  |Bonus si > à 62 [35]",
         "n°9  |Brelan [total]      ",
         "n°10 |Carré [total]       ",
         "n°11 |Full House [25]     ",
@@ -583,7 +602,6 @@ int main(){
         "n°17 |Total               " 
         };
 
-    
     bool partie = true;
     tab_jet jet_courant;
     tab_jet des_bloques;
@@ -592,8 +610,8 @@ int main(){
     while(partie == true){
         demande_nom(nom_joueur1,nom_joueur2);
         initialisation_score(score1, score2);
-        printf("-------------------------------------------------\n");
-        for(int i = 0; i < 13; i++){ // nb de tours de la partie
+        for(int i = 0; i < 2; i++){ // nb de tours de la partie
+            printf("-------------------------------------------------\n");
             printf("Tour %d\n", i+1);
             printf("-------------------------------------------------\n");
 
@@ -602,6 +620,8 @@ int main(){
             int lances = 3;
             int somme_des = 0;
 
+            totaux(score1);
+            totaux(score2);
             affiche_tab(combinaisons, score1, score2, nom_joueur1, nom_joueur2);
 
             jet(jet_courant);
@@ -624,19 +644,25 @@ int main(){
             }while(lances > 0);
 
             //affichage de sa feuille de score et du lancer en cours pour le joueur
+            totaux(score1);
             affiche_tab(combinaisons, score1, score2, nom_joueur1, nom_joueur2);
             affiche_jet(jet_courant,somme_des);
 
             affectation_score(score1, jet_courant, somme_des);
-            /*
-            printf("------------------------------------\n");
+            totaux(score1);
+            
+            printf("-------------------------------------------------\n");
             //joueur 2
    
+            
+
+            printf("Au tour du joueur 2 de jouer\n");
             lances = 3;
             somme_des = 0;
 
+            totaux(score2);
             affiche_tab(combinaisons, score1, score2, nom_joueur1, nom_joueur2);
-            printf("Au tour du joueur 2 de jouer\n");
+
             jet(jet_courant);
             somme_des = somme(jet_courant);
             affiche_jet(jet_courant,somme_des);
@@ -657,15 +683,23 @@ int main(){
             }while(lances > 0);
 
             //affichage de sa feuille de score et du lancer en cours pour le joueur
+            totaux(score2);
             affiche_tab(combinaisons, score1, score2, nom_joueur1, nom_joueur2);
             affiche_jet(jet_courant,somme_des);
 
             affectation_score(score2, jet_courant, somme_des);
-            */
+            totaux(score2);
         }
-        
+        printf("\n");
+        totaux(score1);
+        totaux(score2);
+        affiche_tab(combinaisons, score1, score2, nom_joueur1, nom_joueur2);
         affiche_vainqueur(score1, score2, nom_joueur1, nom_joueur2);
+        printf("\n");
         partie = menufin();
+        printf("\n");
     }
+
+
     return EXIT_SUCCESS;
 }
