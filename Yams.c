@@ -51,7 +51,6 @@ void jet(tab_jet resultats){
             stop = true;
         }
     }
-    printf("%s %s\n",j1,j2);
 }
 
 
@@ -278,17 +277,17 @@ bool grande_suite(tab_jet jet_courant){
 /**
  * @brief affectation du score du jet qui vient d'être effectué dans la feuille de score du joueur
  * 
- * @param euille_score tableau des scores du joueur
+ * @param feuille_score tableau des scores du joueur
  * @param tab_jet tableau de 5 valeurs représentant 5 jets de dé  
  * @param somme_des somme du tableau tab_jet contenant le résultat du lancé de dé
  */
 void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
     int num_case, nb_occurences, val_max;
     bool stop = false;
-    printf("Choisissez dans quelle case vous voulez affecter votre score\n");
+    printf("Choisissez dans quelle case vous voulez affecter votre score ou que vous voulez bloquer\n");
     scanf("%d", &num_case);
     while(stop == false){
-        if(joueur[num_case] == -1){
+        if(joueur[num_case-1] == -1){
             switch (num_case){ // test si les combinaisons sont valides
                 case 1: // total de 1
                     nb_occurences = total_de_x(1,jet_courant);
@@ -296,7 +295,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = nb_occurences;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }
                     break;
 
@@ -306,7 +307,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = nb_occurences*2;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }
                     break;
 
@@ -316,7 +319,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = nb_occurences*3;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }                
                     break;
 
@@ -326,7 +331,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = nb_occurences*4;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }                
                     break;
 
@@ -336,7 +343,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = nb_occurences*5;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }                
                     break;
 
@@ -346,7 +355,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = nb_occurences*6;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }                
                     break;
 
@@ -357,7 +368,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = 3*val_max;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }                
                     break;
 
@@ -368,7 +381,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = 4*val_max;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }                
                     break;
 
@@ -377,7 +392,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = 25;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }       
                     break;
 
@@ -386,7 +403,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = 30;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }           
                     break;
 
@@ -395,7 +414,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = 30;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }       
                     break;
 
@@ -406,7 +427,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                         joueur[num_case - 1] = 50;
                         stop = true;
                     }else{
-                        printf("Combinaison impossible, entrez une autre case.\n");
+                        joueur[num_case - 1] = 0;
+                        stop = true;
+                        printf("Case bloquée\n");
                     }             
                     break;
 
@@ -424,7 +447,9 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
                 scanf("%d", &num_case);
             }
         }else{
-            printf("Numéro de case déjà pris, choisissez-en un autre !\n"); // si le nombre rentré n'est pas une valeur dispo
+            printf("Numéro de case invalide , choisissez-en un autre !\n"); // si le nombre rentré n'est pas une valeur dispo
+            printf("Choisissez dans quelle case vous voulez affecter votre score\n");
+            scanf("%d", &num_case);
         }
 
     }
@@ -475,8 +500,8 @@ void blocage(tab_jet jet_courant,tab_jet bloque){
 bool validation_relance(){
     int val;
     printf("Choisissez : \n");
-    printf("1 - Relancer les dés (possibilitée de bloquer les dés avant la relance)\n");
-    printf("2 - Valider le lancer\n");
+    printf("1 - Relancer/bloquer les dés\n");
+    printf("2 - Valider le lancé effectué\n");
     scanf("%d", &val);
 
     while(val < 1 || val > 2){
@@ -603,7 +628,7 @@ int main(){
             affiche_jet(jet_courant,somme_des);
 
             affectation_score(score1, jet_courant, somme_des);
-            
+            /*
             printf("------------------------------------\n");
             //joueur 2
    
@@ -636,7 +661,9 @@ int main(){
             affiche_jet(jet_courant,somme_des);
 
             affectation_score(score2, jet_courant, somme_des);
+            */
         }
+        
         affiche_vainqueur(score1, score2, nom_joueur1, nom_joueur2);
         partie = menufin();
     }
