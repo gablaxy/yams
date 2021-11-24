@@ -407,6 +407,20 @@ bool menufin(){
     }
 }
 
+// Affichage du vainqueur et des pts
+void affiche_vainqueur(feuille_score score1, feuille_score score2, char joueur1[15], char joueur2[15]){
+    if(score1[16] > score2[16]){
+        printf("%s : %d points | %s : %d points\n",joueur1,score1[16],joueur2,score2[16];)
+        printf("Le vainqueur est le %s\n",joueur1);
+    }else if(score1[16] < score2[16]){
+        printf("%s : %d points | %s : %d points\n",joueur1,score1[16],joueur2,score2[16];)
+        printf("Le vainqueur est le %s\n",joueur2);
+    }else{
+        printf("%s : %d points | %s : %d points\n",joueur1,score1[16],joueur2,score2[16];)
+        printf("Égalité !\n");
+    }
+}
+
 int main(){
 
     srand(time(NULL));
@@ -435,7 +449,7 @@ int main(){
     bool partie = true;
     tab_jet jet_courant;
     tab_jet des_bloques;
-    char nom_joueur1[20], nom_joueur2[20];
+    char nom_joueur1[15], nom_joueur2[15];
     
     while(partie == true){
         demande_nom(nom_joueur1,nom_joueur2);
@@ -511,6 +525,7 @@ int main(){
 
             affectation_score(score2, jet_courant, somme_des);
         }
+        affiche_vainqueur(score1, score2, nom_joueur1, nom_joueur2);
         partie = menufin();
     }
     return EXIT_SUCCESS;
