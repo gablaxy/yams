@@ -10,13 +10,21 @@ typedef int tab_jet[JET]; // tableau d'un jet de dé
 typedef char *feuille[LIGNES]; // tableau des combinaisons à titre informatif pour les joueurs
 typedef int feuille_score[LIGNES]; // tableau de score des joueurs
 
-// effectue un jet de dé random
+/**
+ * @brief jette un dé
+ * 
+ * @return un entier qui correspond au résultat du lancer
+ */
 int jet_un_de(){
     
     return rand() % 6+1;
 }
 
-// effectue 5 jets de dés
+/**
+ * @brief lance 5 fois un dés et stocke dans un tableau les résultats
+ * 
+ * @param tab_jet tableau d'entiers où stocker les résultat des 5 lancés
+ */
 void jet(tab_jet resultats){
     int i;
     for(i=0; i<JET; i++){
@@ -24,7 +32,12 @@ void jet(tab_jet resultats){
     }
 }
 
-//demande des pseudos
+
+/**
+ * @brief demande deux pseudos et les affectent dans deux chaines de caractères
+ * 
+ * @param char chaines de caractère ( deux ) de 15 caractères max
+ */
 ;void demande_nom(char j1[15], char j2[15]){
     bool stop = false;
     while(!stop){
@@ -41,7 +54,13 @@ void jet(tab_jet resultats){
     printf("%s %s\n",j1,j2);
 }
 
-//calcule la somme du jet qui vient d'être effectué
+
+/**
+ * @brief calcule la somme du jet qui vient d'être effectué
+ * 
+ * @param tab_jet tableau de 5 valeurs représentant 5 jets de dé 
+ * @return la somme des 5 valeurs ( entier )
+ */
 int somme(tab_jet jet){
     int somme = 0;
     int i;
@@ -51,7 +70,12 @@ int somme(tab_jet jet){
     return somme;
 }
 
-//affiche le jet qui vient d'être effectué
+/**
+ * @brief affiche le jet qui vient d'être effectué
+ * 
+ * @param tab_jet tableau de 5 valeurs représentant 5 jets de dé 
+ * @param entier , la somme des 5 valeurs du tableau
+ */
 void affiche_jet(tab_jet jet, int somme){
     printf(" _____   _____   _____   _____   _____\n");
     printf("|     | |     | |     | |     | |     |\n");
@@ -61,8 +85,15 @@ void affiche_jet(tab_jet jet, int somme){
     printf("somme totale du jet : %d\n", somme);
 }
 
-
-// affiche les feuille de score
+/**
+ * @brief affiche les feuille de score
+ * 
+ * @param feuille combinaisons
+ * @param feuille_score tableau des scores du joueur 1
+ * @param feuille_score tableau des scores du joueur 2
+ * @param char pseudo du joueur 1 de 15 caractères maximum
+ * @param char pseudo du joueur 2 de 15 caractères maximum
+ */
 void affiche_tab(feuille score, feuille_score joueur1, feuille_score joueur2,char j1[15], char j2[15]){
     int i;
     printf("     |Scores              |%10s|%10s|\n",j1,j2);
@@ -79,7 +110,13 @@ void affiche_tab(feuille score, feuille_score joueur1, feuille_score joueur2,cha
     }
 }
 
-// initialise les feuilles de score au début de la partie
+
+/**
+ * @brief initialise les feuilles de score au début de la partie
+ * 
+ * @param feuille_score tableau des scores du joueur 1
+ * @param feuille_score tableau des scores du joueur 2
+ */
 void initialisation_score(feuille_score joueur1, feuille_score joueur2){
     for(int i=0; i<LIGNES; i++){
         joueur1[i] = -1;
@@ -87,14 +124,22 @@ void initialisation_score(feuille_score joueur1, feuille_score joueur2){
     }
 }
 
-// réinitialise à 0 le tableau des dés bloqués
+/**
+ * @brief réinitialise à 0 le tableau des dés bloqués
+ * 
+ * @param tab_jet tableau qui contiendra les dés bloqués 
+ */
 void reset_tab_jet(tab_jet bloque){
     for(int i=0; i<JET; i++){
         bloque[i]=0;
     }
 }
 
-// Calcule les totaux des feuilles de score
+/**
+ * @brief Calcule les totaux des feuilles de score
+ * 
+ * @param feuille_score tableau des scores du joueur dont on veut faire les totaux
+ */
 void totaux(feuille_score joueur){
     int total_sup = 0;
     for(int i=0; i<7; i++){ // calcul et affectation du total supérieur
@@ -113,7 +158,13 @@ void totaux(feuille_score joueur){
     joueur[16] = total_sup + total_inf; // calcul et affectation du total
 }
 
-// renvoie le nombre d'occurence de x dans un tableau de nombres
+/**
+ * @brief renvoie le nombre d'occurence de x dans un tableau de nombres
+ * 
+ * @param entier x dont on veut compter le nombre d'occurences
+ * @param tab_jet tableau de 5 valeurs représentant 5 jets de dé 
+ * @return int nombre d'occurence de x dans le tableau
+ */
 int total_de_x(int x, tab_jet jet_courant){
     int nb_occurence = 0;
     for(int i=0; i<JET; i++){
@@ -124,7 +175,12 @@ int total_de_x(int x, tab_jet jet_courant){
     return nb_occurence;
 }
 
-//renvoie la valeur qui apparait le plus de fois dans le lancé
+/**
+ * @brief renvoie la valeur qui apparait le plus de fois dans le lancé
+ * 
+ * @param tab_jet tableau de 5 valeurs représentant 5 jets de dé  
+ * @return int la valeur qui a été tiré le plus de fois
+ */
 int plus_de_fois(tab_jet jet_courant){
     int nb_de[6]; // création d'un tableau pour répertorier le nombre d'apparition des valeurs possibles
     int val_max = 0;
@@ -147,7 +203,11 @@ int plus_de_fois(tab_jet jet_courant){
     return val_max;
 }
 
-// trie le jet courant
+/**
+ * @brief trie le tableau passé en paramètre
+ * 
+ * @param tab_jet tableau de 5 valeurs représentant 5 jets de dé  
+ */
 void tri_jet(tab_jet jet_courant){
     int min, x;
 
@@ -162,7 +222,13 @@ void tri_jet(tab_jet jet_courant){
     }
 }
 
-// renvoie true si c'est un full, false sinon
+/**
+ * @brief renvoie true si le tableau en paramètre est un full, sinon renvoie false
+ * 
+ * @param tab_jet tableau de 5 valeurs représentant 5 jets de dé  
+ * @return true
+ * @return false 
+ */
 bool full(tab_jet jet_courant){
     tri_jet(jet_courant);
     int max = 0;
@@ -175,7 +241,13 @@ bool full(tab_jet jet_courant){
     return false;
 }
 
-// renvoie true si c'est une petite suite, false sinon
+/**
+ * @brief renvoie true si le tableau en paramètre est une petite suite, sinon renvoie false
+ * 
+ * @param tab_jet tableau de 5 valeurs représentant 5 jets de dé   
+ * @return true 
+ * @return false 
+ */
 bool petite_suite(tab_jet jet_courant){
     tri_jet(jet_courant);
     if((jet_courant[0] == jet_courant[1] - 1) && (jet_courant[0] == jet_courant[2] - 2) && (jet_courant[0] == jet_courant[3] - 3)){
@@ -186,7 +258,13 @@ bool petite_suite(tab_jet jet_courant){
     return false;
 }
 
-// renvoie true si c'est une grande suite, false sinon
+/**
+ * @brief renvoie true si le tableau en paramètre est une grande suite, sinon renvoie false
+ * 
+ * @param tab_jet tableau de 5 valeurs représentant 5 jets de dé  
+ * @return true 
+ * @return false 
+ */
 bool grande_suite(tab_jet jet_courant){
     tri_jet(jet_courant);
     if((jet_courant[0] == jet_courant[1] - 1) && (jet_courant[0] == jet_courant[2] - 2) && (jet_courant[0] == jet_courant[3] - 3) && (jet_courant[0] == jet_courant[4] - 4)){
@@ -195,7 +273,13 @@ bool grande_suite(tab_jet jet_courant){
     return false;
 }
 
-//affectation du score du jet qui vient d'être effectué dans la feuille de score du joueur
+/**
+ * @brief affectation du score du jet qui vient d'être effectué dans la feuille de score du joueur
+ * 
+ * @param euille_score tableau des scores du joueur
+ * @param tab_jet tableau de 5 valeurs représentant 5 jets de dé  
+ * @param somme_des somme du tableau tab_jet contenant le résultat du lancé de dé
+ */
 void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
     int num_case, nb_occurences, val_max;
     bool stop = false;
@@ -344,7 +428,12 @@ void affectation_score(feuille_score joueur,tab_jet jet_courant, int somme_des){
     }
 }
 
-//écrase les dés qui on été relancés alors qu'ils sont bloqués
+/**
+ * @brief écrase les dés qui on été relancés si ils ont déjà été bloqués
+ * 
+ * @param jet_courant tableau de 5 valeurs représentant 5 jets de dé
+ * @param bloque tableau de 5 valeurs représentant 5 dés bloqués ou non
+ */
 void fusion(tab_jet jet_courant,tab_jet bloque){
     for(int i=0; i<JET; i++){
         if(bloque[i] != 0){
@@ -353,7 +442,12 @@ void fusion(tab_jet jet_courant,tab_jet bloque){
     }
 }
 
-//blocage des dés
+/**
+ * @brief blocage des dés
+ * 
+ * @param jet_courant tableau de 5 valeurs représentant 5 jets de dé
+ * @param bloque tableau de 5 valeurs représentant 5 dés bloqués ou non 
+ */
 void blocage(tab_jet jet_courant,tab_jet bloque){
     int val;
     bool stop = false;
@@ -370,7 +464,12 @@ void blocage(tab_jet jet_courant,tab_jet bloque){
     }
 }
 
-//Menu de choix qui propose de bloquer / relancer ou de valider le lancé effectué
+/**
+ * @brief Menu de choix qui propose de bloquer / relancer ou de valider le lancé effectué
+ * 
+ * @return true bloque / relance les dés
+ * @return false valide le lancé
+ */
 bool validation_relance(){
     int val;
     printf("Choisissez : \n");
@@ -389,7 +488,12 @@ bool validation_relance(){
     }
 }
 
-//Menu de fin qui demande si les joueurs veulent relancer une partie ou quitter
+/**
+ * @brief Menu de fin qui demande si les joueurs veulent relancer une partie ou quitter
+ * 
+ * @return true si relance d'une partie
+ * @return false si quitter
+ */
 bool menufin(){
     int val;
     printf("Choisissez :\n");
@@ -407,7 +511,14 @@ bool menufin(){
     }
 }
 
-// Affichage du vainqueur et des pts
+/**
+ * @brief Affichage du vainqueur et des pts
+ * 
+ * @param feuille_score tableau des scores du joueur 1
+ * @param feuille_score tableau des scores du joueur 2
+ * @param char pseudo du joueur 1 de 15 caractères maximum
+ * @param char pseudo du joueur 2 de 15 caractères maximum
+ */
 void affiche_vainqueur(feuille_score score1, feuille_score score2, char joueur1[15], char joueur2[15]){
     if(score1[16] > score2[16]){
         printf("%s : %d points | %s : %d points\n",joueur1,score1[16],joueur2,score2[16];)
