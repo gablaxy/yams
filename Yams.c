@@ -36,17 +36,17 @@ void jet(tab_jet resultats){
 /**
  * @brief demande deux pseudos et les affectent dans deux chaines de caractères
  * 
- * @param char chaines de caractère ( deux ) de 15 caractères max
+ * @param char chaines de caractère ( deux ) de 6 caractères max
  */
-;void demande_nom(char j1[15], char j2[15]){
+;void demande_nom(char j1[6], char j2[6]){
     bool stop = false;
     while(!stop){
-        printf("nom joueur 1 ?\n");
+        printf("nom joueur 1 ( 6 caractères max ) ?\n");
         scanf("%s", j1);
-        printf("nom joueur 2 ?\n");
+        printf("nom joueur 2 ( 6 caractères max ) ?\n");
         scanf("%s", j2);
-        if(strlen(j1) > 15 || strlen(j2) > 15){
-            printf("nom trop long rééssayez\n");
+        if(strlen(j1) > 6 || strlen(j2) > 6){
+            printf("nom trop long ( supérieur à 6 caractères ) rééssayez\n");
         }else{
             stop = true;
         }
@@ -91,23 +91,25 @@ void affiche_jet(tab_jet jet, int somme){
  * @param feuille combinaisons
  * @param feuille_score tableau des scores du joueur 1
  * @param feuille_score tableau des scores du joueur 2
- * @param char pseudo du joueur 1 de 15 caractères maximum
- * @param char pseudo du joueur 2 de 15 caractères maximum
+ * @param char pseudo du joueur 1 de 6 caractères maximum
+ * @param char pseudo du joueur 2 de 6 caractères maximum
  */
-void affiche_tab(feuille score, feuille_score joueur1, feuille_score joueur2,char j1[15], char j2[15]){
+void affiche_tab(feuille score, feuille_score joueur1, feuille_score joueur2,char j1[6], char j2[6]){
     int i;
-    printf("     |Scores              |%10s|%10s|\n",j1,j2);
+    printf("_________________________________________________\n");
+    printf("     |Scores              \t|%s\t|%s\t|\n",j1,j2);
     for(i=0; i<LIGNES; i++){
         if(joueur1[i] == -1 && joueur2[i] == -1){ // met des trous si les case ne sont pas encore remplies/bloquées
-            printf("%s|\t|\t|\n", score[i]);
+            printf("%s\t|\t|\t|\n", score[i]);
         }else if(joueur1[i] == -1){
-            printf("%s|\t|%2d\t|\n", score[i], joueur2[i]);
+            printf("%s\t|\t|%d\t|\n", score[i], joueur2[i]);
         }else if(joueur2[i] == -1){
-            printf("%s|%2d\t|\t|\n", score[i], joueur1[i]);
+            printf("%s\t|%d\t|\t|\n", score[i], joueur1[i]);
         }else{
-            printf("%s|%2d\t|%2d\t|\n", score[i], joueur1[i], joueur2[i]);
+            printf("%s\t|%d\t|%d\t|\n", score[i], joueur1[i], joueur2[i]);
         }
     }
+    printf("¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯\n");
 }
 
 
@@ -142,7 +144,7 @@ void reset_tab_jet(tab_jet bloque){
  */
 void totaux(feuille_score joueur){
     int total_sup = 0;
-    for(int i=0; i<7; i++){ // calcul et affectation du total supérieur
+    for(int i=0; i<15; i++){ // calcul et affectation du total supérieur
         if(joueur[i] != -1){
             total_sup = total_sup + joueur[i];
         }
@@ -516,18 +518,18 @@ bool menufin(){
  * 
  * @param feuille_score tableau des scores du joueur 1
  * @param feuille_score tableau des scores du joueur 2
- * @param char pseudo du joueur 1 de 15 caractères maximum
- * @param char pseudo du joueur 2 de 15 caractères maximum
+ * @param char pseudo du joueur 1 de 6 caractères maximum
+ * @param char pseudo du joueur 2 de 6 caractères maximum
  */
-void affiche_vainqueur(feuille_score score1, feuille_score score2, char joueur1[15], char joueur2[15]){
+void affiche_vainqueur(feuille_score score1, feuille_score score2, char joueur1[6], char joueur2[6]){
     if(score1[16] > score2[16]){
-        printf("%s : %d points | %s : %d points\n",joueur1,score1[16],joueur2,score2[16];)
+        printf("%s : %d points | %s : %d points\n",joueur1,score1[16],joueur2,score2[16]);
         printf("Le vainqueur est le %s\n",joueur1);
     }else if(score1[16] < score2[16]){
-        printf("%s : %d points | %s : %d points\n",joueur1,score1[16],joueur2,score2[16];)
+        printf("%s : %d points | %s : %d points\n",joueur1,score1[16],joueur2,score2[16]);
         printf("Le vainqueur est le %s\n",joueur2);
     }else{
-        printf("%s : %d points | %s : %d points\n",joueur1,score1[16],joueur2,score2[16];)
+        printf("%s : %d points | %s : %d points\n",joueur1,score1[16],joueur2,score2[16]);
         printf("Égalité !\n");
     }
 }
@@ -560,18 +562,18 @@ int main(){
     bool partie = true;
     tab_jet jet_courant;
     tab_jet des_bloques;
-    char nom_joueur1[15], nom_joueur2[15];
+    char nom_joueur1[6], nom_joueur2[6];
     
     while(partie == true){
         demande_nom(nom_joueur1,nom_joueur2);
         initialisation_score(score1, score2);
-
-        for(int i = 0; i < 13; i++){ // nb de tours de la partie 
+        printf("-------------------------------------------------\n");
+        for(int i = 0; i < 13; i++){ // nb de tours de la partie
             printf("Tour %d\n", i+1);
-            printf("------------------------------------\n");
+            printf("-------------------------------------------------\n");
 
             //joueur 1
-            printf("Au tour joueur 1 de jouer\n");
+            printf("Au tour du joueur 1 de jouer\n");
             int lances = 3;
             int somme_des = 0;
 
@@ -605,12 +607,11 @@ int main(){
             printf("------------------------------------\n");
             //joueur 2
    
-            printf("Au tour joueur 2 de jouer\n");
             lances = 3;
             somme_des = 0;
 
             affiche_tab(combinaisons, score1, score2, nom_joueur1, nom_joueur2);
-
+            printf("Au tour du joueur 2 de jouer\n");
             jet(jet_courant);
             somme_des = somme(jet_courant);
             affiche_jet(jet_courant,somme_des);
