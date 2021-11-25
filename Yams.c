@@ -252,7 +252,7 @@ void tri_jet(tab_jet jet_courant){
 bool full(tab_jet jet_courant){
     tri_jet(jet_courant);
     int max = 0;
-    max = plus_de_fois(jet_courant);
+    max = plus_de_fois(jet_courant) + 1;
     if(total_de_x(max,jet_courant) == 3){
         if(jet_courant[0]==jet_courant[1] || jet_courant[3]==jet_courant[4]){
             return true;
