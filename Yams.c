@@ -610,7 +610,7 @@ int main(){
     while(partie == true){
         demande_nom(nom_joueur1,nom_joueur2);
         initialisation_score(score1, score2);
-        for(int i = 0; i < 2; i++){ // nb de tours de la partie
+        for(int i = 0; i < 13; i++){ // nb de tours de la partie
             printf("-------------------------------------------------\n");
             printf("Tour %d\n", i+1);
             printf("-------------------------------------------------\n");
