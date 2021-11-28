@@ -552,9 +552,8 @@ bool menufin(){
     }
     if(val == 1){
         return true;
-    }else{
-        return false;
     }
+    return false;
 }
 
 /**
